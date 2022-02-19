@@ -50,8 +50,15 @@ namespace AssignmentBackEnd1.Controllers
             {
                 return BadRequest();
             }
-            _context.Produces.Add(produce);
-            _context.SaveChanges();
+            try
+            {
+                _context.Produces.Add(produce);
+                _context.SaveChanges();
+            }
+            catch (Exception ee)
+            {
+                return Conflict(new { message = $"An existing record with the id '{produce.ProduceID}' was already found." });
+            }
             return new ObjectResult(produce);
         }
 
@@ -93,7 +100,7 @@ namespace AssignmentBackEnd1.Controllers
             }
             catch (Exception ee)
             {
-                return Conflict(new { message = $"An existing record with the id '{id}' was already found." });
+                return Conflict(new { message = "Invalid request, please try a different entry." });
             }
             var item = _context.Produces.Where(p => p.ProduceID == id).FirstOrDefault();
             if (item == null)
@@ -107,7 +114,7 @@ namespace AssignmentBackEnd1.Controllers
             }
             catch (Exception ee)
             {
-                return Conflict(new { message = $"An existing record with the id '{id}' was already found."});
+                return Conflict(new { message = "Invalid request, please try a different entry." });
             }
             return new ObjectResult(item);
         }

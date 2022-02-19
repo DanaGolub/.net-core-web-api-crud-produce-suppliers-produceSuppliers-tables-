@@ -49,8 +49,14 @@ namespace AssignmentBackEnd1.Controllers
             {
                 return BadRequest();
             }
+            try {
             _context.ProduceSuppliers.Add(produceSupplier);
             _context.SaveChanges();
+            }
+            catch (Exception ee)
+            {
+                return Conflict(new { message = $"Incorrect entry, please try again." });
+            }
             return new ObjectResult(produceSupplier);
         }
 
