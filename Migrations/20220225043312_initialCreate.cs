@@ -2,7 +2,7 @@
 
 namespace AssignmentBackEnd1.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
